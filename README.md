@@ -15,14 +15,14 @@
 
 - Windows系统
 - vscode
-- C++
+- C++14
 
 ## 3. 项目结构
 
 ``` plain
-|_build .o文件的生成文件夹
 |_file .txt文件的存放文件夹
 |_include .h文件的存放文件夹
+|_main main函数所在的.c文件存放的文件夹
 |_src .c文件的存放文件夹
 Makefile 编译项目所需的文件
 README.md 本文档
@@ -49,13 +49,12 @@ simple-vim.exe 可执行程序
 
 - 编译与启动程序
 
-  - 进入主文件夹，创建`file`文件夹（simple-vim所有编辑的文件都在`file`文件夹下）
-  
   - 在主文件夹打开bash命令行，输入`make`，即可生成`simple-vim.exe`，双击启动程序（注：`make clean`可以清除.o文件）
 
   - 注意
     - 不支持程序窗口大小的调整
     - 不支持文本的换行和换页
+    - 所有simple-vim所编辑的文件都存放在`file`文件夹内
 
 - 初始界面
 
