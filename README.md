@@ -49,9 +49,9 @@ simple-vim.exe 可执行程序
 
 - 编译与启动程序
 
-  - 进入主文件夹，创建`build`和`file`文件夹
+  - 进入主文件夹，创建`file`文件夹（simple-vim所有编辑的文件都在`file`文件夹下）
   
-  - 在主文件夹打开bash命令行，输入`make`，即可生成`simple-vim.exe`，双击启动程序
+  - 在主文件夹打开bash命令行，输入`make`，即可生成`simple-vim.exe`，双击启动程序（注：`make clean`可以清除.o文件）
 
   - 注意
     - 不支持程序窗口大小的调整
