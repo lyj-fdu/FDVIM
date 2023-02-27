@@ -3,12 +3,8 @@ CFLAGS := -g -Wall -std=c++14 -O3
 CPPFLAGS := $(CFLAGS)
 RM-F := rm -f
 
-EXECUTABLE := simple-vim
-INCLUDE_DIR := include
-SRC_DIR := src
-MAIN_DIR := main
-
-SRCS := $(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(MAIN_DIR)/*.cpp)
+EXECUTABLE := simple-vim.exe
+SRCS := $(wildcard src/*.cpp) $(wildcard main/*.cpp)
 OBJS := $(patsubst %.cpp, %.o, $(SRCS))
 
 .PHONY : clean veryclean info
@@ -23,5 +19,6 @@ veryclean: clean
 	@$(RM-F) $(EXECUTABLE)
 
 info:
+	@echo "exe:"  $(EXECUTABLE)
 	@echo "srcs:" $(SRCS)
 	@echo "objs:" $(OBJS)
