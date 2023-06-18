@@ -19,8 +19,8 @@ public:
 	InsertTxt(vector<string>& txt, COORD& cur, History& history):
 		Txt(txt, cur, history) {}
 
-	void handleInput(); // 控制输入
-	void render(); // 生成窗口
+	void handleInput() override; // 控制输入
+	void render() override; // 生成窗口
 };
 
 #endif
