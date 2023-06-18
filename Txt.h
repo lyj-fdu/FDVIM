@@ -1,31 +1,13 @@
 #ifndef TXT_H
 #define TXT_H
 
-#include <stack>
 #include <string>
 #include <vector>
 #include "CursorOp.h"
+#include "History.h"
 
-using std::stack;
 using std::string;
 using std::vector;
-
-class History {
-private:
-	stack<vector<string>> undo_txt, redo_txt; // 撤销与重做的文本内容
-	stack<COORD> undo_cur, redo_cur; // 撤销与重做的光标位置
-
-public:
-	void save(const vector<string>& txt, const COORD& cur); // 保留操作前的状态
-	void undo(vector<string>& txt, COORD& cur); // 撤销
-	void redo(vector<string>& txt, COORD& cur); // 重做
-	bool canUndo() {
-		return static_cast<int>(undo_cur.size()) > 0;   // undo空否
-	}
-	bool canRedo() {
-		return static_cast<int>(redo_cur.size()) > 0;   // redo空否
-	}
-};
 
 class Txt {
 protected:

@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="LS8Y8_prfT_N856s4JSq" name="第 1 页">
-        <mxGraphModel dx="420" dy="118" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="872" dy="245" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -82,7 +82,7 @@
                 <mxCell id="27" value="&lt;div style=&quot;&quot;&gt;&lt;div&gt;+ save(const vector&amp;lt;string&amp;gt;&amp;amp; txt, const COORD&amp;amp; cur)&lt;/div&gt;&lt;div&gt;+ undo(vector&amp;lt;string&amp;gt;&amp;amp; txt, COORD&amp;amp; cur)&lt;/div&gt;&lt;div&gt;+ redo(vector&amp;lt;string&amp;gt;&amp;amp; txt, COORD&amp;amp; cur)&lt;/div&gt;&lt;div&gt;+ canUndo()&lt;/div&gt;&lt;div&gt;+ canRedo()&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
                     <mxGeometry x="480" y="420" width="320" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="28" value="&lt;div&gt;- stack&amp;lt;vector&amp;lt;string&amp;gt;&amp;gt; undo_txt, redo_txt;&amp;nbsp;&lt;/div&gt;&lt;div&gt;- stack&amp;lt;COORD&amp;gt; undo_cur, redo_cur;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+                <mxCell id="28" value="&lt;div&gt;- stack&amp;lt;vector&amp;lt;string&amp;gt;&amp;gt; undo_txt, redo_txt&amp;nbsp;&lt;/div&gt;&lt;div&gt;- stack&amp;lt;COORD&amp;gt; undo_cur, redo_cur&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
                     <mxGeometry x="480" y="380" width="320" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="43" style="edgeStyle=none;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;" parent="1" source="29" target="26" edge="1">
