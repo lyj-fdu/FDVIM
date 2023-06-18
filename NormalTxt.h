@@ -27,8 +27,8 @@ public:
 
 	void RWTxt(); // 读写操作
 	void Delete(); // 删除光标处的字符
-	void Undo(); // 撤销操作
-	void Redo(); // 重做操作
+	void undo(); // 撤销操作
+	void redo(); // 重做操作
 	void Search(); // 搜索操作
 
 };

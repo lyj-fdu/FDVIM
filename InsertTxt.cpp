@@ -17,19 +17,19 @@ void InsertTxt::handleInput(){
 		cmd = _getch();
 	switch(cmd){
 	case Left: // 光标左移
-		MoveLeft();
+		moveLeft();
 		break;
 	case Down: // 光标下移
-		MoveDown();
+		moveDown();
 		break;
 	case Up: // 光标上移
-		MoveUp();
+		moveUp();
 		break;
 	case Right: // 光标右移
-		MoveRight();
+		moveRight();
 		break;
 	case ESC: // 普通模式
-		EditorScreen::text_ = std::make_shared<NormalTxt>(txt_, cur_, history_);
+		EditorScreen::text_ = std::make_shared<NormalTxt>(txt, cur, history);
 		break;
 	default: // 输入字符
 		Insert(cmd);
@@ -44,28 +44,28 @@ void InsertTxt::render(){
 	GotoXY(0, 28);
 	cout << "<Insert>";
 	// 显示文本
-	if(txt_.size() == 0) return;
+	if(txt.size() == 0) return;
 	GotoXY(0, 0);
-	if(txt_.size() == 0) return;
-	int len = txt_.size();
+	if(txt.size() == 0) return;
+	int len = txt.size();
 	for(int i = 0; i < len - 1; i++)
-		cout << txt_[i] << endl;
-	cout << txt_[len - 1];
+		cout << txt[i] << endl;
+	cout << txt[len - 1];
 	// 显示光标
-	GotoXY(cur_.X, cur_.Y);
+	GotoXY(cur.X, cur.Y);
 }
 
 void InsertTxt::Insert(char& cmd){
 	if(isprint(cmd)){
-		if(cur_.Y < static_cast<int>(txt_.size()) && 
-			cur_.X <= static_cast<int>(txt_[cur_.Y].size())){ // 在某一现有的行插入
-			history_.Save(txt_, cur_); // 保留历史操作
-			txt_[cur_.Y].insert(txt_[cur_.Y].begin() + cur_.X++, cmd); // 插入并更新x
+		if(cur.Y < static_cast<int>(txt.size()) && 
+			cur.X <= static_cast<int>(txt[cur.Y].size())){ // 在某一现有的行插入
+			history.save(txt, cur); // 保留历史操作
+			txt[cur.Y].insert(txt[cur.Y].begin() + cur.X++, cmd); // 插入并更新x
 
 			render();
 			GotoXY(9, 28); // 移动光标到"<Normal> "之后
 			cout << "Insert!";
-			GotoXY(cur_.X, cur_.Y);
+			GotoXY(cur.X, cur.Y);
 		}
 	}
 }
