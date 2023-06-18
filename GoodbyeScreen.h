@@ -1,9 +1,14 @@
 #ifndef GOODBYE_SCREEN_H
 #define GOODBYE_SCREEN_H
 
-#include"Screen.h"
+#include <conio.h>
+#include <iostream>
+#include "CursorOp.h"
+#include "Screen.h"
 
-class GoodbyeScreen: public Screen{
+using std::cout;
+
+class GoodbyeScreen: public Screen {
 public:
 	void handleInput() override; // 控制输入
 	void render() override; // 生成窗口

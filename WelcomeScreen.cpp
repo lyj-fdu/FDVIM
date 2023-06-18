@@ -1,17 +1,10 @@
-#include"WelcomeScreen.h"
-#include"EditorScreen.h"
-#include"Editor.h"
-#include"CursorOp.h"
+#include "WelcomeScreen.h"
 
-#include<iostream>
-
-using std::cout;
-
-void WelcomeScreen::handleInput(){
-	Editor::getScreen() = std::make_shared<EditorScreen>(); // 进入编辑器界面
+void WelcomeScreen::handleInput() {
+	Editor::screen = std::make_shared<EditorScreen>(); // 进入编辑器界面
 }
 
-void WelcomeScreen::render(){
+void WelcomeScreen::render() {
 	// 设置欢迎文字
 	GotoXY(33, 10);
 	cout << "Welcome to FDVIM Editor!";

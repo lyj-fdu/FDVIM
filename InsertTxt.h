@@ -15,6 +15,7 @@ private:
 	void insert(char& cmd); // 插入字符
 
 public:
+	InsertTxt() {}
 	InsertTxt(vector<string>& txt, COORD& cur, History& history):
 		Txt(txt, cur, history) {}
 

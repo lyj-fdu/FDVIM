@@ -1,24 +1,20 @@
 #include "Editor.h"
 
-std::shared_ptr<Screen> Editor::screen_ = std::make_shared<WelcomeScreen>();
-
-std::shared_ptr<Screen>& Editor::getScreen() {
-	return screen_;
-}
+std::shared_ptr<Screen> Editor::screen = std::make_shared<WelcomeScreen>();
 
 void Editor::run() {
 	system("mode con cols=100 lines=30"); // 设置窗口的行与列
 	system("title FDVIM"); // 设置窗口名称
-	while(1) {
+	while(true) {
 		render();
 		handleInput();
 	}
 }
 
 void Editor::handleInput() {
-	screen_->handleInput();
+	screen->handleInput();
 }
 
 void Editor::render() {
-	screen_->render();
+	screen->render();
 }

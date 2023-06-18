@@ -1,12 +1,11 @@
 #include"EditorScreen.h"
-#include"NormalTxt.h"
 
 std::shared_ptr<Txt> EditorScreen::text = std::make_shared<NormalTxt>();
 
-void EditorScreen::handleInput(){
+void EditorScreen::handleInput() {
 	text->handleInput();
 }
 
-void EditorScreen::render(){
+void EditorScreen::render() {
 	text->render();
 }

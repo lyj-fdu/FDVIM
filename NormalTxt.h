@@ -32,6 +32,7 @@ private:
 	void redo(); // 重做操作
 
 public:
+	NormalTxt() {}
 	NormalTxt(vector<string>& txt, COORD& cur, History& history):
 		Txt(txt, cur, history) {}
 

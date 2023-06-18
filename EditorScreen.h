@@ -1,15 +1,15 @@
 #ifndef EDITOR_SCREEN_H
 #define EDITOR_SCREEN_H
 
-#include"Screen.h"
-#include"Txt.h"
-
-#include<fstream>
-#include<memory>
+#include <fstream>
+#include <memory>
+#include "NormalTxt.h"
+#include "Screen.h"
+#include "Txt.h"
 
 using std::fstream;
 
-class EditorScreen: public Screen{
+class EditorScreen: public Screen {
 public:
 	static std::shared_ptr<Txt> text;
 

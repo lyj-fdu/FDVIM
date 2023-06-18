@@ -21,6 +21,7 @@ protected:
 	void moveRight(); // 光标右移
 
 public:
+	Txt() {}
 	Txt(vector<string>& txt, COORD& cur, History& history)
 		: txt(txt), cur(cur), history(history) {}
 

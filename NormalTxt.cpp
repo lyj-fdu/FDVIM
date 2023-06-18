@@ -162,7 +162,7 @@ void NormalTxt::exeCmd() {
 	cout << ":";
 	cin >> op;
 	if (op == "q")
-		Editor::getScreen() = std::make_shared<GoodbyeScreen>();
+		Editor::screen = std::make_shared<GoodbyeScreen>();
 	if (op == "open") { // 读
 		cin >> filename;
 		filename = "assets/" + filename;
