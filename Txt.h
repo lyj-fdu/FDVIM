@@ -19,11 +19,15 @@ public:
 	void save(const vector<string>& txt, const COORD& cur); // 保留操作前的状态
 	void undo(vector<string>& txt, COORD& cur); // 撤销
 	void redo(vector<string>& txt, COORD& cur); // 重做
-	bool canUndo() {return static_cast<int>(undo_cur.size()) > 0;} // Undo空否
-	bool canRedo() {return static_cast<int>(redo_cur.size()) > 0;} // Undo空否
+	bool canUndo() {
+		return static_cast<int>(undo_cur.size()) > 0;   // undo空否
+	}
+	bool canRedo() {
+		return static_cast<int>(redo_cur.size()) > 0;   // redo空否
+	}
 };
 
-class Txt{
+class Txt {
 protected:
 	vector<string> txt; // 文本内容
 	COORD cur; // 光标位置
@@ -35,9 +39,8 @@ protected:
 	void moveRight(); // 光标右移
 
 public:
-	Txt() {}
 	Txt(vector<string>& txt, COORD& cur, History& history)
-		:txt(txt), cur(cur), history(history) {}
+		: txt(txt), cur(cur), history(history) {}
 
 	virtual void handleInput() = 0; // 控制输入
 	virtual void render() = 0; // 生成窗口

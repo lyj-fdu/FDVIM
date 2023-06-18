@@ -1,27 +1,16 @@
-#include"NormalTxt.h"
-#include"Editor.h"
-#include"GoodbyeScreen.h"
-#include"EditorScreen.h"
-#include"InsertTxt.h"
+#include "NormalTxt.h"
 
-#include<iostream>
-
-using std::cout;
-using std::cin;
-using std::endl;
-using std::ios;
-
-void NormalTxt::handleInput(){
+void NormalTxt::handleInput() {
 	cin.sync(); // 清空输入缓冲区
 	char cmd = _getch(); // 读取字符
-	if(!isascii(cmd)) // 将字符转换为键盘指令
+	if (!isascii(cmd)) // 将字符转换为键盘指令
 		cmd = _getch();
-	switch(cmd){
-	case ':': // 文件读写
-		RWTxt();
+	switch (cmd) {
+	case ':': // 执行命令
+		exeCmd();
 		break;
 	case 'x': // 删除光标处的字符
-		Delete();
+		delChar();
 		break;
 	case 'u': // 撤销操作
 		undo();
@@ -42,15 +31,15 @@ void NormalTxt::handleInput(){
 		moveRight();
 		break;
 	case 'i': // 插入模式
-		EditorScreen::text_ = std::make_shared<InsertTxt>(txt, cur, history);
+		EditorScreen::text = std::make_shared<InsertTxt>(txt, cur, history);
 		break;
 	case '/': // 寻字模式
-		Search();
+		searchStr();
 		break;
 	}
 }
 
-void NormalTxt::render(){
+void NormalTxt::render() {
 	// 清屏
 	system("cls");
 	// 底部栏目
@@ -60,90 +49,87 @@ void NormalTxt::render(){
 	cout << "<Normal> ";
 	// 显示文本
 	GotoXY(0, 0);
-	if(txt.size() == 0) return;
+	if (txt.size() == 0) return;
 	int len = txt.size();
-	for(int i = 0; i < len - 1; i++)
+	for (int i = 0; i < len - 1; i++)
 		cout << txt[i] << endl;
 	cout << txt[len - 1];
 	// 显示光标
 	GotoXY(cur.X, cur.Y);
 }
 
-void NormalTxt::ReadTxt(string& filename){
-	file_.close(); // 关闭上一个文件
-	file_.open(filename.data(), ios::in); // 打开新文件，读模式
-	if(!file_.is_open()){
+void NormalTxt::readTxt(string& filename) {
+	file.close(); // 关闭上一个文件
+	file.open(filename.data(), ios::in); // 打开新文件，读模式
+	render();
+	GotoXY(9, 28); // 移动光标到"<Normal> "之后
 
-		render();
-		GotoXY(9, 28); // 移动光标到"<Normal> "之后
+	// 未找到文件
+	if (!file.is_open()) {
 		cout << "File Not Found!";
 		GotoXY(cur.X, cur.Y);
-
 		return;
 	}
 
-	render();
-	GotoXY(9, 28); // 移动光标到"<Normal> "之后
+	// 成功打开
 	cout << "Opening...";
+	txt.resize(0);
+	txt.shrink_to_fit(); // 初始化txt
+	file.seekg(0, ios::beg); // 将文件指针指向开头
+	while (!file.eof()) { // 读到文件末尾
+		string line;
+		getline(file, line);
+		txt.push_back(line);
+	}
+	file.seekg(0, ios::beg); // 将文件指针指向开头
 
-	ExtractTxt(); // 提取文件内容到向量中
 	// 获取光标位置
 	cur.Y = static_cast<int>(txt.size()) - 1;
 	cur.X = static_cast<int>(txt[cur.Y].size()) - 1;
 	history.save(txt, cur); // 保留历史操作
 }
 
-void NormalTxt::ExtractTxt(){
-	txt.resize(0); txt.shrink_to_fit(); // 初始化txt
-	if(file_.is_open()){ // 文件打开时读入
-		file_.seekg(0, ios::beg); // 将文件指针指向开头
-		while(!file_.eof()){ // 读到文件末尾
-			string line;
-			getline(file_,line);
-			txt.push_back(line);
-		}
-		file_.seekg(0, ios::beg); // 将文件指针指向开头
-	}
-}
-
-void NormalTxt::WriteTxt(string& filename){
+void NormalTxt::writeTxt(string& filename) {
 	render();
 	GotoXY(9, 28); // 移动光标到"<Normal> "之后
 	cout << "Saving...";
-
-	file_.close(); // 关闭上一个文件
-	file_.open(filename.data(), ios::out); // 打开新文件，写模式
-	if(txt.size() == 0) return;
+	file.close(); // 关闭上一个文件
+	file.open(filename.data(), ios::out); // 打开新文件，写模式
+	if (txt.size() == 0) return;
 	int len = txt.size();
-	for(int i = 0; i < len - 1; i++)
-		file_ << txt[i] << endl;
-	file_ << txt[len - 1];
+	for (int i = 0; i < len - 1; i++)
+		file << txt[i] << endl;
+	file << txt[len - 1];
 }
 
-void NormalTxt::PreProcess(const string& p, vector<int>& next){
+void NormalTxt::KMPPreProcess(const string& p, vector<int>& next) {
 	int len = p.size(); // p长度
-	next.resize(len); next.shrink_to_fit(); // next容量
+	next.resize(len);
+	next.shrink_to_fit(); // next容量
 	int i(0), j = next[0] = -1; // 初始化
-	while(i < len - 1){
-		while(j > -1 && p[i] != p[j])
+	while (i < len - 1) {
+		while (j > -1 && p[i] != p[j])
 			j = next[j];
-		i++; j++;
-		if(p[i] == p[j]) next[i] = next[j];
+		i++;
+		j++;
+		if (p[i] == p[j]) next[i] = next[j];
 		else next[i] = j;
 	}
 }
 
-void NormalTxt::KMPSearch(string& pattern, COORD& cur){
-	vector<int> next; PreProcess(pattern, next); // 预处理
+void NormalTxt::KMPSearch(string& pattern, COORD& cur) {
+	vector<int> next;
+	KMPPreProcess(pattern, next); // 预处理
 	int plen = pattern.size(), ylen = static_cast<int>(txt.size()), xlen(0);
-	for(int p = cur.Y; p < ylen; p++){ // 从这行找到末尾
+	for (int p = cur.Y; p < ylen; p++) { // 从这行找到末尾
 		int q = (p == cur.Y) ? cur.X : 0, k(0); // 起始行q赋值x，否则赋值0
 		xlen = static_cast<int>(txt[p].size()); // 本行的长度
-		while(q < xlen){ // q遍历本行查找
-			while(k > -1 && pattern[k] != txt[p][q])
+		while (q < xlen) { // q遍历本行查找
+			while (k > -1 && pattern[k] != txt[p][q])
 				k = next[k];
-			q++; k++;
-			if(k == plen){ // 找到
+			q++;
+			k++;
+			if (k == plen) { // 找到
 				history.save(txt, cur); // 保留历史操作
 				cur.X = q - k; // 定位x
 				cur.Y = p; // 定位y
@@ -161,72 +147,72 @@ void NormalTxt::KMPSearch(string& pattern, COORD& cur){
 	cout << "Not Found! Do you want to find \"" << pattern << "\" from begnning?(y/n)"; // 输出没找到信息
 	char choice;
 	cin >> choice;
-	if(choice == 'y'){
+	if (choice == 'y') {
 		render();
 		history.save(txt, cur); // 保留历史操作
-		cur.X = 0; cur.Y = 0; // 定位至开头
+		cur.X = 0;
+		cur.Y = 0; // 定位至开头
 		KMPSearch(pattern, cur);
 	}
 }
 
-void NormalTxt::RWTxt(){
+void NormalTxt::exeCmd() {
 	string op, filename;
 	GotoXY(9, 28); // 移动光标到"<Normal> "之后
 	cout << ":";
 	cin >> op;
 	if (op == "q")
 		Editor::getScreen() = std::make_shared<GoodbyeScreen>();
-	if(op == "open") { // 读
+	if (op == "open") { // 读
 		cin >> filename;
 		filename = "assets/" + filename;
-		ReadTxt(filename);
-	} else if(op == "w") { // 写
+		readTxt(filename);
+	} else if (op == "w") { // 写
 		cin >> filename;
 		filename = "assets/" + filename;
-		WriteTxt(filename);
+		writeTxt(filename);
 	}
 }
 
-void NormalTxt::Delete(){
-	if(cur.X == 0 && cur.Y == 0 && static_cast<int>(txt.size()) == 0) return; // 第一行开头且无字
+void NormalTxt::delChar() {
+	if (cur.X == 0 && cur.Y == 0 && static_cast<int>(txt.size()) == 0) return; // 第一行开头且无字
 
 	render();
 	GotoXY(9, 28); // 移动光标到"<Normal> "之后
-	cout << "Delete!";
+	cout << "delete!";
 	GotoXY(cur.X, cur.Y);
 
 	history.save(txt, cur); // 保留历史操作
 
-	if(cur.X == 0 && cur.Y == 0){ // 第一行开头且文本有字
-		if(static_cast<int>(txt[0].size()) == 0) // 空行
+	if (cur.X == 0 && cur.Y == 0) { // 第一行开头且文本有字
+		if (static_cast<int>(txt[0].size()) == 0) // 空行
 			txt.erase(txt.begin()); // 删除空行
 		else // 有字
 			txt[0].erase(txt[0].begin()); // 删除第一个字
 		return;
 	}
-	
-	if(cur.X == 0){ // 仅有1字
+
+	if (cur.X == 0) { // 仅有1字
 		txt[cur.Y].erase(txt[cur.Y].begin() + cur.X); // 删除
-		if(static_cast<int>(txt[cur.Y].size()) == 0) // 空行
+		if (static_cast<int>(txt[cur.Y].size()) == 0) // 空行
 			txt.erase(txt.begin() + cur.Y); // 删除空行
 		cur.Y--; // 移到上一行
-		cur.X = static_cast<int>(txt[cur.Y].size()) > 0 ? 
-			static_cast<int>(txt[cur.Y].size()) - 1 : 0; // 移到末尾
-	}else 
-		if(cur.X < static_cast<int>(txt[cur.Y].size())) // 有效删除区域内，不在该行末尾之外
-			txt[cur.Y].erase(txt[cur.Y].begin() + cur.X--); // 删除并左移
-		else // 在该行末尾之外
-			cur.X--; // 直接左移
+		cur.X = static_cast<int>(txt[cur.Y].size()) > 0 ?
+		        static_cast<int>(txt[cur.Y].size()) - 1 : 0; // 移到末尾
+	} else if (cur.X < static_cast<int>(txt[cur.Y].size())) // 有效删除区域内，不在该行末尾之外
+		txt[cur.Y].erase(txt[cur.Y].begin() + cur.X--); // 删除并左移
+	else // 在该行末尾之外
+		cur.X--; // 直接左移
 }
 
-void NormalTxt::undo(){
-	if(history.canUndo()){
+void NormalTxt::undo() {
+	if (history.canUndo()) {
 		history.undo(txt, cur);
 
 		render();
 		GotoXY(9, 28); // 移动光标到"<Normal> "之后
 		cout << "undo!";
-	}else{
+	} else {
 		render();
 		GotoXY(9, 28); // 移动光标到"<Normal> "之后
 		cout << "No more undo!";
@@ -234,14 +220,14 @@ void NormalTxt::undo(){
 	GotoXY(cur.X, cur.Y);
 }
 
-void NormalTxt::redo(){
-	if(history.canRedo()){
+void NormalTxt::redo() {
+	if (history.canRedo()) {
 		history.redo(txt, cur);
 
 		render();
 		GotoXY(9, 28); // 移动光标到"<Normal> "之后
 		cout << "redo!";
-	}else{
+	} else {
 		render();
 		GotoXY(9, 28); // 移动光标到"<Normal> "之后
 		cout << "No more redo!";
@@ -249,7 +235,7 @@ void NormalTxt::redo(){
 	GotoXY(cur.X, cur.Y);
 }
 
-void NormalTxt::Search(){
+void NormalTxt::searchStr() {
 	GotoXY(9, 28); // 移动光标到"<Normal> "之后
 	cout << '/';
 	string pattern;
