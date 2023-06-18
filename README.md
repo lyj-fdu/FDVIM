@@ -14,22 +14,41 @@
 ## 2. 环境
 
 - Windows系统
+- bash终端
 - vscode
 - C++14
 
 ## 3. 项目结构
 
 ``` plain
-|_file .txt文件的存放文件夹
-|_include .h文件的存放文件夹
-|_main main函数所在的.c文件存放的文件夹
-|_src .c文件的存放文件夹
+|_assets .txt等文件存放文件夹
+CursorOp.cpp 光标操作
+CursorOp.h
+Editor.cpp 编辑器
+Editor.h
+EditorScreen.cpp 编辑屏幕
+EditorScreen.h
+fdvim.cpp 主程序
+fdvim.exe 可执行程序
+GoodbyeScreen.cpp 结束屏幕
+GoodbyeScreen.h
+InsertTxt.cpp 插入文字
+InsertTxt.h
 Makefile 编译项目所需的文件
+NormalTxt.cpp 普通文字
+NormalTxt.h
 README.md 本文档
-simple-vim.exe 可执行程序
+Screen.cpp 屏幕虚基类
+Screen.h
+Txt.cpp 文字虚基类
+Txt.h
+WelcomeScreen.cpp 欢迎屏幕
+WelcomeScreen.h
 ```
 
 ## 4. 设计
+
+![UML](assets/UML.png)
 
 - 数据结构设计
   - 文本以行为单位，每行储存在string里，所有string储存在vector中
@@ -49,12 +68,12 @@ simple-vim.exe 可执行程序
 
 - 编译与启动程序
 
-  - 在主文件夹打开bash命令行，输入`make`，即可生成`simple-vim.exe`，双击启动程序（注：`make clean`可以清除.o文件）
-
+  - 在主文件夹打开bash命令行，输入`make`，即可生成`fdvim.exe`，双击启动程序
+    - 注：`make clean`可以清除.o文件
   - 注意
     - 不支持程序窗口大小的调整
     - 不支持文本的换行和换页
-    - 所有simple-vim所编辑的文件都存放在`file`文件夹内
+    - 所有fdvim所编辑的文件都存放在`assets`文件夹内
 
 - 初始界面
 

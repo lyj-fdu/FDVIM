@@ -1,17 +1,18 @@
-#include "../include/CursorOp.h"
-#include "../include/GoodbyeScreen.h"
+#include"CursorOp.h"
+#include"GoodbyeScreen.h"
 
-#include <iostream>
+#include<conio.h>
+#include<iostream>
 
 using std::cout;
 
 void GoodbyeScreen::HandleInput(){}
 
 void GoodbyeScreen::Render(){
-	system("cls"); // Ë¢ÐÂ
+	system("cls"); // åˆ·æ–°
 	GotoXY(36, 12);
 	cout << "Thanks for Using!";
 	GotoXY(36, 14);
-	system("pause"); // ÔÝÍ£
+	system("pause"); // æš‚åœ
 	exit(0);
 }

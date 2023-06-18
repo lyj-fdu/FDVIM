@@ -1,10 +1,9 @@
-CC := g++
-CFLAGS := -g -Wall -std=c++14 -O3
-CPPFLAGS := $(CFLAGS)
-RM-F := rm -f
+CC       := @g++
+CPPFLAGS := -g -Wall -std=c++14 -O3
+RM-F     := @rm -f
 
-EXECUTABLE := simple-vim.exe
-SRCS := $(wildcard src/*.cpp) $(wildcard main/*.cpp)
+EXECUTABLE := fdvim.exe
+SRCS := $(wildcard *.cpp)
 OBJS := $(patsubst %.cpp, %.o, $(SRCS))
 
 .PHONY : clean veryclean info
@@ -13,10 +12,10 @@ $(EXECUTABLE): $(OBJS)
 	$(CC) -o $(EXECUTABLE) $(OBJS)
 
 clean:
-	@$(RM-F) $(OBJS)
+	$(RM-F) $(OBJS)
 
 veryclean: clean
-	@$(RM-F) $(EXECUTABLE)
+	$(RM-F) $(EXECUTABLE)
 
 info:
 	@echo "exe:"  $(EXECUTABLE)

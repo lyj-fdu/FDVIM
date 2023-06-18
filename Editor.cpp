@@ -1,11 +1,14 @@
-#include "../include/Editor.h"
-#include "../include/WelcomeScreen.h"
+#include"Editor.h"
+#include"WelcomeScreen.h"
+
+#include<conio.h>
+#include<Windows.h>
 
 std::shared_ptr<Screen> Editor::screen_ = std::make_shared<WelcomeScreen>();
 
 Editor::Editor(){
-	system("mode con cols=100 lines=30"); // 设置窗口的行与列
-	system("title Simple Vim"); // 设置窗口名称
+	system("mode con cols=100 lines=30"); // 璁剧疆绐楀彛鐨勮涓庡垪
+	system("title Simple Vim"); // 璁剧疆绐楀彛鍚嶇О
 }
 
 void Editor::Run(){

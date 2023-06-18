@@ -1,50 +1,49 @@
-#include "../include/NormalTxt.h"
-#include "../include/InsertTxt.h"
-#include "../include/EditorScreen.h"
+#include"InsertTxt.h"
+#include"EditorScreen.h"
+#include"NormalTxt.h"
 
-#include <iostream>
-#include <conio.h>
+#include<iostream>
 
 using std::cout;
 using std::endl;
 using std::cin;
 
-enum Dir {Up = 72, Down = 80, Left = 75, Right = 77, ESC = 27};
+enum Dir{Up = 72, Down = 80, Left = 75, Right = 77, ESC = 27};
 
 void InsertTxt::HandleInput(){
-	cin.sync(); // Çå¿ÕÊäÈë»º³åÇø
-	char cmd = _getch(); // ¶ÁÈ¡×Ö·û
-	if(!isascii(cmd)) // ½«×Ö·û×ª»»Îª¼üÅÌÖ¸Áî
+	cin.sync(); // æ¸…ç©ºè¾“å…¥ç¼“å†²åŒº
+	char cmd = _getch(); // è¯»å–å­—ç¬¦
+	if(!isascii(cmd)) // å°†å­—ç¬¦è½¬æ¢ä¸ºé”®ç›˜æŒ‡ä»¤
 		cmd = _getch();
 	switch(cmd){
-	case Left: // ¹â±ê×óÒÆ
+	case Left: // å…‰æ ‡å·¦ç§»
 		MoveLeft();
 		break;
-	case Down: // ¹â±êÏÂÒÆ
+	case Down: // å…‰æ ‡ä¸‹ç§»
 		MoveDown();
 		break;
-	case Up: // ¹â±êÉÏÒÆ
+	case Up: // å…‰æ ‡ä¸Šç§»
 		MoveUp();
 		break;
-	case Right: // ¹â±êÓÒÒÆ
+	case Right: // å…‰æ ‡å³ç§»
 		MoveRight();
 		break;
-	case ESC: // ÆÕÍ¨Ä£Ê½
+	case ESC: // æ™®é€šæ¨¡å¼
 		EditorScreen::text_ = std::make_shared<NormalTxt>(txt_, cur_, history_);
 		break;
-	default: // ÊäÈë×Ö·û
+	default: // è¾“å…¥å­—ç¬¦
 		Insert(cmd);
 		break;
 	}
 }
 
 void InsertTxt::Render(){
-	// ÇåÆÁ
+	// æ¸…å±
 	system("cls");
-	// µ×²¿À¸Ä¿
+	// åº•éƒ¨æ ç›®
 	GotoXY(0, 28);
 	cout << "<Insert>";
-	// ÏÔÊ¾ÎÄ±¾
+	// æ˜¾ç¤ºæ–‡æœ¬
 	if(txt_.size() == 0) return;
 	GotoXY(0, 0);
 	if(txt_.size() == 0) return;
@@ -52,19 +51,19 @@ void InsertTxt::Render(){
 	for(int i = 0; i < len - 1; i++)
 		cout << txt_[i] << endl;
 	cout << txt_[len - 1];
-	// ÏÔÊ¾¹â±ê
+	// æ˜¾ç¤ºå…‰æ ‡
 	GotoXY(cur_.X, cur_.Y);
 }
 
 void InsertTxt::Insert(char& cmd){
 	if(isprint(cmd)){
 		if(cur_.Y < static_cast<int>(txt_.size()) && 
-			cur_.X <= static_cast<int>(txt_[cur_.Y].size())){ // ÔÚÄ³Ò»ÏÖÓĞµÄĞĞ²åÈë
-			history_.Save(txt_, cur_); // ±£ÁôÀúÊ·²Ù×÷
-			txt_[cur_.Y].insert(txt_[cur_.Y].begin() + cur_.X++, cmd); // ²åÈë²¢¸üĞÂx
+			cur_.X <= static_cast<int>(txt_[cur_.Y].size())){ // åœ¨æŸä¸€ç°æœ‰çš„è¡Œæ’å…¥
+			history_.Save(txt_, cur_); // ä¿ç•™å†å²æ“ä½œ
+			txt_[cur_.Y].insert(txt_[cur_.Y].begin() + cur_.X++, cmd); // æ’å…¥å¹¶æ›´æ–°x
 
 			Render();
-			GotoXY(9, 28); // ÒÆ¶¯¹â±êµ½"<Normal> "Ö®ºó
+			GotoXY(9, 28); // ç§»åŠ¨å…‰æ ‡åˆ°"<Normal> "ä¹‹å
 			cout << "Insert!";
 			GotoXY(cur_.X, cur_.Y);
 		}

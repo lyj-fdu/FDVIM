@@ -1,16 +1,17 @@
 #ifndef INSERT_TXT_H
 #define INSERT_TXT_H
 
-#include "Txt.h"
+#include"Txt.h"
 
 class InsertTxt: public Txt{
 public:
 	InsertTxt(vector<string>& txt, COORD& cur, History& history):Txt(txt, cur, history){}
 
-	void HandleInput(); // 控制输入
-	void Render(); // 生成窗口
+	void HandleInput(); // 鎺у埗杈撳叆
+	void Render(); // 鐢熸垚绐楀彛
 
-	void Insert(char& cmd); // 插入字符
+	void Insert(char& cmd); // 鎻掑叆瀛楃
+
 };
 
 #endif

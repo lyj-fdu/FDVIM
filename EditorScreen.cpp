@@ -1,5 +1,5 @@
-#include "../include/EditorScreen.h"
-#include "../include/NormalTxt.h"
+#include"EditorScreen.h"
+#include"NormalTxt.h"
 
 std::shared_ptr<Txt> EditorScreen::text_ = std::make_shared<NormalTxt>();
 
