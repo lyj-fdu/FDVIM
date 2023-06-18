@@ -22,7 +22,7 @@
 
 ``` plain
 |_assets .txt等文件存放文件夹
-CursorOp.cpp 光标操作
+CursorOp.cpp 光标操作工具函数
 CursorOp.h
 Editor.cpp 编辑器
 Editor.h
@@ -32,6 +32,8 @@ fdvim.cpp 主程序
 fdvim.exe 可执行程序
 GoodbyeScreen.cpp 结束屏幕
 GoodbyeScreen.h
+History.cpp 历史记录
+History.h
 InsertTxt.cpp 插入文字
 InsertTxt.h
 Makefile 编译项目所需的文件
@@ -39,7 +41,8 @@ NormalTxt.cpp 普通文字
 NormalTxt.h
 README.md 本文档
 Screen.h 屏幕虚基类
-Txt.h 文字虚基类
+Txt.cpp 文字虚基类
+Txt.h
 WelcomeScreen.cpp 欢迎屏幕
 WelcomeScreen.h
 ```
