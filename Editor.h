@@ -1,10 +1,13 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
-#include"Screen.h"
-#include<memory>
+#include <conio.h>
+#include <memory>
+#include <Windows.h>
+#include "Screen.h"
+#include "WelcomeScreen.h"
 
-class Editor{
+class Editor {
 private:
 	static std::shared_ptr<Screen> screen_; // 窗口
 
@@ -15,6 +18,7 @@ private:
 
 public:
 	static std::shared_ptr<Screen>& getScreen(); // 获取窗口
+	
 	static void run(); // 运行
 };
 
