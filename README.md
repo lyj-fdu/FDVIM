@@ -56,13 +56,13 @@ WelcomeScreen.h
   - 文件流数据结构、光标操作、控制台窗口需要的句柄、智能指针等结构可以通过标准库直接调用
 - 框架设计
   - 首先构建出了三个基本的界面
-    - 考虑到有三种操作界面，这三个界面具有相似性，都有显示界面与处理输入的功能，因此先设计一个`Screen`父类，三种界面作为`Screen`的子类继承，记为`WelcomeScreen`，`EditorScreen`以及`GoodbyeScreen`。它们由于具有处理输入与显示界面的共同功能，因此将`Screen`作为虚基类，带有`HandleInput`与`Render`两个虚函数，其三个子类重写这两个操作。
-    - 考虑通过多态实现上述三种界面的调用，因此通过智能指针来实现。由此，设计`Editor`类，储存一个调用窗口的智能指针`static std::shared_ptr<Screen> screen_`，并且具有运行程序`Run`，控制输入`HandleInput`，显示界面`Render`三个功能。其中，`Run`是一个死循环，不断调用`Render`以及`HandleInput`，`Render`与`HandleInput`分别调用`screen_`的`Render`与`HandleInput`，实现多态。
+    - 考虑到有三种操作界面，这三个界面具有相似性，都有显示界面与处理输入的功能，因此先设计一个`Screen`父类，三种界面作为`Screen`的子类继承，记为`WelcomeScreen`，`EditorScreen`以及`GoodbyeScreen`。它们由于具有处理输入与显示界面的共同功能，因此将`Screen`作为虚基类，带有`handleInput`与`render`两个虚函数，其三个子类重写这两个操作。
+    - 考虑通过多态实现上述三种界面的调用，因此通过智能指针来实现。由此，设计`Editor`类，储存一个调用窗口的智能指针`static std::shared_ptr<Screen> screen_`，并且具有运行程序`run`，控制输入`handleInput`，显示界面`render`三个功能。其中，`run`是一个死循环，不断调用`render`以及`handleInput`，`render`与`handleInput`分别调用`screen_`的`render`与`handleInput`，实现多态。
   - 然后构建`EditorScreen`的两种模式的操作
     - 首先建立历史操作的储存类`History`，其中带有撤销与重做的文本与光标位置的`stack`，共4个，为`stack<vector<string>> undo_txt_, redo_txt_;`以及`stack<COORD> undo_cur_, redo_cur_`。类中，有保留历史操作的`Save`函数，以及撤销、重做操作的`Undo`、`Redo`函数，以及是否能进行撤销、重做操作的判断函数`CanUndo`、`CanRedo`。
-    - 考虑到这两种模式的操作具有相似性，比如都有光标的上下左右移动、都有文字的储存显示、历史记录的保留等，因此先设计一个`Txt`父类，两种模式作为`Txt`的子类继承，记为`NormalTxt`以及`InsertTxt`。它们由于具有处理输入与显示界面的共同功能，因此将`Txt`作为虚基类，带有`HandleInput`与`Render`两个虚函数，其两个子类重写这两个操作。同时，由于两种模式都有都有光标的上下左右移动，因此在`Txt`类中直接实现光标的上下左右移动操作的函数`MoveLeft`、`MoveDown`、`MoveUp`、`MoveRight`。同时由于两个子类都有文本显示、光标位置、历史记录，因此在`Txt`类中储存`vector<string> txt_`、`COORD cur_`、`History history_`三个数据。在`NormalTxt`类中，由于具有读写文件的操作，因此加入文件流数据`fstream file_`；在`InsertTxt`类中，没有多余的数据。
+    - 考虑到这两种模式的操作具有相似性，比如都有光标的上下左右移动、都有文字的储存显示、历史记录的保留等，因此先设计一个`Txt`父类，两种模式作为`Txt`的子类继承，记为`NormalTxt`以及`InsertTxt`。它们由于具有处理输入与显示界面的共同功能，因此将`Txt`作为虚基类，带有`handleInput`与`render`两个虚函数，其两个子类重写这两个操作。同时，由于两种模式都有都有光标的上下左右移动，因此在`Txt`类中直接实现光标的上下左右移动操作的函数`MoveLeft`、`MoveDown`、`MoveUp`、`MoveRight`。同时由于两个子类都有文本显示、光标位置、历史记录，因此在`Txt`类中储存`vector<string> txt_`、`COORD cur_`、`History history_`三个数据。在`NormalTxt`类中，由于具有读写文件的操作，因此加入文件流数据`fstream file_`；在`InsertTxt`类中，没有多余的数据。
     - 考虑通过多态实现上述两种模式的调用，因此通过智能指针来实现。由此，在`EditorScreen`中储存一个调用不同模式的智能指针`static std::shared_ptr<Txt> text_`，实现多态。
-  - 综上，便成功地封装出了若干类，类之间有继承关系，也有依赖关系，灵活多变、可读性强。其结果是，`main`函数中只需要实例化`Editor`类，并且调用`Run`函数，就可以运行这个Vim编辑器，简洁明了。
+  - 综上，便成功地封装出了若干类，类之间有继承关系，也有依赖关系，灵活多变、可读性强。其结果是，`main`函数中只需要实例化`Editor`类，并且调用`run`函数，就可以运行这个Vim编辑器，简洁明了。
 
 ## 5. 运行
 

@@ -35,8 +35,8 @@ public:
 	Txt(vector<string>& txt, COORD& cur, History& history)
 		:txt_(txt), cur_(cur), history_(history){}
 
-	virtual void HandleInput() = 0; // 控制输入
-	virtual void Render() = 0; // 生成窗口
+	virtual void handleInput() = 0; // 控制输入
+	virtual void render() = 0; // 生成窗口
 
 	void MoveLeft(); // 光标左移
 	void MoveDown(); // 光标下移

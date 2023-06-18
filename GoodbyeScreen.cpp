@@ -6,9 +6,9 @@
 
 using std::cout;
 
-void GoodbyeScreen::HandleInput(){}
+void GoodbyeScreen::handleInput(){}
 
-void GoodbyeScreen::Render(){
+void GoodbyeScreen::render(){
 	system("cls"); // 刷新
 	GotoXY(36, 12);
 	cout << "Thanks for Using!";

@@ -3,8 +3,8 @@
 
 class Screen{
 public:
-	virtual void HandleInput() = 0; // 处理输入
-	virtual void Render() = 0; // 生成窗口
+	virtual void handleInput() = 0; // 处理输入
+	virtual void render() = 0; // 生成窗口
 };
 
 #endif

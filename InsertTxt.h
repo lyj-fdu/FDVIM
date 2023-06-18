@@ -7,8 +7,8 @@ class InsertTxt: public Txt{
 public:
 	InsertTxt(vector<string>& txt, COORD& cur, History& history):Txt(txt, cur, history){}
 
-	void HandleInput(); // 控制输入
-	void Render(); // 生成窗口
+	void handleInput(); // 控制输入
+	void render(); // 生成窗口
 
 	void Insert(char& cmd); // 插入字符
 

@@ -1,7 +1,6 @@
-#include"Editor.h"
+#include "Editor.h"
 
 int main(){
-	Editor editor;
-	editor.Run();
+	Editor::run();
 	return 0;
 }

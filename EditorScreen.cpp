@@ -3,10 +3,10 @@
 
 std::shared_ptr<Txt> EditorScreen::text_ = std::make_shared<NormalTxt>();
 
-void EditorScreen::HandleInput(){
-	text_->HandleInput();
+void EditorScreen::handleInput(){
+	text_->handleInput();
 }
 
-void EditorScreen::Render(){
-	text_->Render();
+void EditorScreen::render(){
+	text_->render();
 }

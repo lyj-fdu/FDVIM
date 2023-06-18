@@ -10,7 +10,7 @@ using std::cin;
 
 enum Dir{Up = 72, Down = 80, Left = 75, Right = 77, ESC = 27};
 
-void InsertTxt::HandleInput(){
+void InsertTxt::handleInput(){
 	cin.sync(); // 清空输入缓冲区
 	char cmd = _getch(); // 读取字符
 	if(!isascii(cmd)) // 将字符转换为键盘指令
@@ -37,7 +37,7 @@ void InsertTxt::HandleInput(){
 	}
 }
 
-void InsertTxt::Render(){
+void InsertTxt::render(){
 	// 清屏
 	system("cls");
 	// 底部栏目
@@ -62,7 +62,7 @@ void InsertTxt::Insert(char& cmd){
 			history_.Save(txt_, cur_); // 保留历史操作
 			txt_[cur_.Y].insert(txt_[cur_.Y].begin() + cur_.X++, cmd); // 插入并更新x
 
-			Render();
+			render();
 			GotoXY(9, 28); // 移动光标到"<Normal> "之后
 			cout << "Insert!";
 			GotoXY(cur_.X, cur_.Y);

@@ -13,8 +13,8 @@ class EditorScreen: public Screen{
 public:
 	static std::shared_ptr<Txt> text_;
 
-	void HandleInput() override; // 控制输入
-	void Render() override; // 生成窗口
+	void handleInput() override; // 控制输入
+	void render() override; // 生成窗口
 };
 
 #endif

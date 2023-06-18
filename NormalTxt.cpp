@@ -11,7 +11,7 @@ using std::cin;
 using std::endl;
 using std::ios;
 
-void NormalTxt::HandleInput(){
+void NormalTxt::handleInput(){
 	cin.sync(); // 清空输入缓冲区
 	char cmd = _getch(); // 读取字符
 	if(!isascii(cmd)) // 将字符转换为键盘指令
@@ -50,7 +50,7 @@ void NormalTxt::HandleInput(){
 	}
 }
 
-void NormalTxt::Render(){
+void NormalTxt::render(){
 	// 清屏
 	system("cls");
 	// 底部栏目
@@ -74,7 +74,7 @@ void NormalTxt::ReadTxt(string& filename){
 	file_.open(filename.data(), ios::in); // 打开新文件，读模式
 	if(!file_.is_open()){
 
-		Render();
+		render();
 		GotoXY(9, 28); // 移动光标到"<Normal> "之后
 		cout << "File Not Found!";
 		GotoXY(cur_.X, cur_.Y);
@@ -82,7 +82,7 @@ void NormalTxt::ReadTxt(string& filename){
 		return;
 	}
 
-	Render();
+	render();
 	GotoXY(9, 28); // 移动光标到"<Normal> "之后
 	cout << "Opening...";
 
@@ -107,7 +107,7 @@ void NormalTxt::ExtractTxt(){
 }
 
 void NormalTxt::WriteTxt(string& filename){
-	Render();
+	render();
 	GotoXY(9, 28); // 移动光标到"<Normal> "之后
 	cout << "Saving...";
 
@@ -156,13 +156,13 @@ void NormalTxt::KMPSearch(string& pattern, COORD& cur){
 		}
 	}
 	// 没找到
-	Render();
+	render();
 	GotoXY(9, 28); // 移动光标到"<Normal> "之后
 	cout << "Not Found! Do you want to find \"" << pattern << "\" from begnning?(y/n)"; // 输出没找到信息
 	char choice;
 	cin >> choice;
 	if(choice == 'y'){
-		Render();
+		render();
 		history_.Save(txt_, cur); // 保留历史操作
 		cur.X = 0; cur.Y = 0; // 定位至开头
 		KMPSearch(pattern, cur);
@@ -175,7 +175,7 @@ void NormalTxt::RWTxt(){
 	cout << ":";
 	cin >> op;
 	if (op == "q")
-		Editor::screen_ = std::make_shared<GoodbyeScreen>();
+		Editor::getScreen() = std::make_shared<GoodbyeScreen>();
 	if(op == "open") { // 读
 		cin >> filename;
 		filename = "assets/" + filename;
@@ -190,7 +190,7 @@ void NormalTxt::RWTxt(){
 void NormalTxt::Delete(){
 	if(cur_.X == 0 && cur_.Y == 0 && static_cast<int>(txt_.size()) == 0) return; // 第一行开头且无字
 
-	Render();
+	render();
 	GotoXY(9, 28); // 移动光标到"<Normal> "之后
 	cout << "Delete!";
 	GotoXY(cur_.X, cur_.Y);
@@ -223,11 +223,11 @@ void NormalTxt::Undo(){
 	if(history_.CanUndo()){
 		history_.Undo(txt_, cur_);
 
-		Render();
+		render();
 		GotoXY(9, 28); // 移动光标到"<Normal> "之后
 		cout << "Undo!";
 	}else{
-		Render();
+		render();
 		GotoXY(9, 28); // 移动光标到"<Normal> "之后
 		cout << "No more Undo!";
 	}
@@ -238,11 +238,11 @@ void NormalTxt::Redo(){
 	if(history_.CanRedo()){
 		history_.Redo(txt_, cur_);
 
-		Render();
+		render();
 		GotoXY(9, 28); // 移动光标到"<Normal> "之后
 		cout << "Redo!";
 	}else{
-		Render();
+		render();
 		GotoXY(9, 28); // 移动光标到"<Normal> "之后
 		cout << "No more Redo!";
 	}

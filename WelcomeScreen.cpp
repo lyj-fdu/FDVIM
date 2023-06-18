@@ -7,11 +7,11 @@
 
 using std::cout;
 
-void WelcomeScreen::HandleInput(){
-	Editor::screen_ = std::make_shared<EditorScreen>(); // 进入编辑器界面
+void WelcomeScreen::handleInput(){
+	Editor::getScreen() = std::make_shared<EditorScreen>(); // 进入编辑器界面
 }
 
-void WelcomeScreen::Render(){
+void WelcomeScreen::render(){
 	// 设置欢迎文字
 	GotoXY(33, 10);
 	cout << "Welcome to FDVIM Editor!";
