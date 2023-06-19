@@ -1,6 +1,6 @@
 CC       := @g++
 CPPFLAGS := -g -Wall -std=c++14 -O3
-RM-F     := @rm -f
+RM       := @del
 
 EXECUTABLE := fdvim.exe
 SRCS := $(wildcard *.cpp)
@@ -12,10 +12,10 @@ $(EXECUTABLE): $(OBJS)
 	$(CC) -o $(EXECUTABLE) $(OBJS)
 
 clean:
-	$(RM-F) $(OBJS)
+	$(RM) $(OBJS)
 
 veryclean: clean
-	$(RM-F) $(EXECUTABLE)
+	$(RM) $(EXECUTABLE)
 
 info:
 	@echo "exe:"  $(EXECUTABLE)

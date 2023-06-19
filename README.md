@@ -14,8 +14,7 @@
 ## 2. 环境
 
 - Windows系统
-- bash终端
-- vscode
+- cmd终端
 - C++14
 
 ## 3. 项目结构
@@ -69,7 +68,7 @@ WelcomeScreen.h
 
 - 编译与启动程序
 
-  - 在主文件夹打开bash命令行，输入`make`，即可生成`fdvim.exe`，双击启动程序
+  - 在主文件夹打开cmd命令行，输入`make`，即可生成`fdvim.exe`，双击启动程序
     - 注：`make clean`可以清除.o文件
   - 注意
     - 不支持程序窗口大小的调整

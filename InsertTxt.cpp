@@ -8,18 +8,18 @@ void InsertTxt::handleInput() {
 	if (!isascii(cmd)) // 将字符转换为键盘指令
 		cmd = _getch();
 	switch (cmd) {
-	case Left: // 光标左移
-		moveLeft();
-		break;
-	case Down: // 光标下移
-		moveDown();
-		break;
-	case Up: // 光标上移
-		moveUp();
-		break;
-	case Right: // 光标右移
-		moveRight();
-		break;
+	// case Left: // 光标左移
+	// 	moveLeft();
+	// 	break;
+	// case Down: // 光标下移
+	// 	moveDown();
+	// 	break;
+	// case Up: // 光标上移
+	// 	moveUp();
+	// 	break;
+	// case Right: // 光标右移
+	// 	moveRight();
+	// 	break;
 	case ESC: // 普通模式
 		EditorScreen::text = std::make_shared<NormalTxt>(txt, cur, history);
 		break;
