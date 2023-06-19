@@ -63,16 +63,14 @@ void NormalTxt::readTxt(string& filename) {
 	file.open(filename.data(), ios::in); // 打开新文件，读模式
 	render();
 	GotoXY(9, 28); // 移动光标到"<Normal> "之后
-
-	// 未找到文件
-	if (!file.is_open()) {
-		cout << "File Not Found!";
-		GotoXY(cur.X, cur.Y);
-		return;
+	if (file.is_open()) {
+		cout << "Opening...";
+	} else {
+		cout << "Creating...";
+		file.open(filename.data(), ios::out);
+		file.close();
+		file.open(filename.data(), ios::in);
 	}
-
-	// 成功打开
-	cout << "Opening...";
 	txt.resize(0);
 	txt.shrink_to_fit(); // 初始化txt
 	file.seekg(0, ios::beg); // 将文件指针指向开头
@@ -85,7 +83,7 @@ void NormalTxt::readTxt(string& filename) {
 
 	// 获取光标位置
 	cur.Y = static_cast<int>(txt.size()) - 1;
-	cur.X = static_cast<int>(txt[cur.Y].size()) - 1;
+	cur.X = static_cast<int>(txt[cur.Y].size());
 	history.save(txt, cur); // 保留历史操作
 }
 
