@@ -15,11 +15,6 @@ protected:
 	COORD cur; // 光标位置
 	History history; // 历史操作
 
-	void moveLeft(); // 光标左移
-	void moveDown(); // 光标下移
-	void moveUp(); // 光标上移
-	void moveRight(); // 光标右移
-
 public:
 	Txt() {}
 	Txt(vector<string>& txt, COORD& cur, History& history)

@@ -60,7 +60,7 @@ WelcomeScreen.h
     - 考虑通过多态实现上述三种界面的调用，因此通过智能指针来实现。由此，设计`Editor`类，储存一个调用窗口的智能指针`static std::shared_ptr<Screen> screen`，并且具有运行程序`run`，控制输入`handleInput`，显示界面`render`三个功能。其中，`run`是一个死循环，不断调用`render`以及`handleInput`，`render`与`handleInput`分别调用`screen`的`render`与`handleInput`，实现多态。
   - 然后构建`EditorScreen`的两种模式的操作
     - 首先建立历史操作的储存类`History`，其中带有撤销与重做的文本与光标位置的`stack`，共4个，为`stack<vector<string>> undo_txt, redo_txt;`以及`stack<COORD> undo_cur, redo_cur`。类中，有保留历史操作的`save`函数，以及撤销、重做操作的`undo`、`redo`函数，以及是否能进行撤销、重做操作的判断函数`canUndo`、`canRedo`。
-    - 考虑到这两种模式的操作具有相似性，比如都有光标的上下左右移动、都有文字的储存显示、历史记录的保留等，因此先设计一个`Txt`父类，两种模式作为`Txt`的子类继承，记为`NormalTxt`以及`InsertTxt`。它们由于具有处理输入与显示界面的共同功能，因此将`Txt`作为虚基类，带有`handleInput`与`render`两个虚函数，其两个子类重写这两个操作。同时，由于两种模式都有都有光标的上下左右移动，因此在`Txt`类中直接实现光标的上下左右移动操作的函数`moveLeft`、`moveDown`、`moveUp`、`moveRight`。同时由于两个子类都有文本显示、光标位置、历史记录，因此在`Txt`类中储存`vector<string> txt`、`COORD cur`、`History history`三个数据。在`NormalTxt`类中，由于具有读写文件的操作，因此加入文件流数据`fstream file`；在`InsertTxt`类中，没有多余的数据。
+    - 考虑到这两种模式的操作具有相似性，比如都有文字的储存显示、历史记录的保留等，因此先设计一个`Txt`父类，两种模式作为`Txt`的子类继承，记为`NormalTxt`以及`InsertTxt`。它们由于具有处理输入与显示界面的共同功能，因此将`Txt`作为虚基类，带有`handleInput`与`render`两个虚函数，其两个子类重写这两个操作。由于两个子类都有文本显示、光标位置、历史记录，因此在`Txt`类中储存`vector<string> txt`、`COORD cur`、`History history`三个数据。在`NormalTxt`类中，由于具有读写文件的操作，因此加入文件流数据`fstream file`；在`InsertTxt`类中，没有多余的数据。
     - 考虑通过多态实现上述两种模式的调用，因此通过智能指针来实现。由此，在`EditorScreen`中储存一个调用不同模式的智能指针`static std::shared_ptr<Txt> text`，实现多态。
   - 综上，便成功地封装出了若干类，类之间有继承关系，也有依赖关系，灵活多变、可读性强。其结果是，`main`函数中只需要实例化`Editor`类，并且调用`run`函数，就可以运行这个Vim编辑器，简洁明了。
 
@@ -82,20 +82,21 @@ WelcomeScreen.h
 
 - Normal模式
 
-  - 窗口的左下角有一个`<Normal>`提示符，窗口由一个带有`Command`字样的横线分隔开来，横线以上是内容区，横下以下是命令区与操作显示区。
+  - 窗口左下角有`<Normal>`提示符，该行是命令与提示操作区，上方是文本内容区
   - 命令
-    - `:open filename`：读取文本文件filename并显示
+    - `:open filename`：读取文本文件filename并显示，若不存在则新建，若已存在则直接打开；filename为`assets`文件夹下的文件名，例如`1.txt`
     - `:w filename`：保存文本到文件filename，若不存在则新建，若已存在则直接覆盖
     - `:q`：退出编辑器
     - `x`：删除光标处字符
     - `u`：撤销上次操作
     - `r`：重做上次操作
-    - `/pattern`：全文搜索pattern字符串
+    - `/pattern`：从光标处开始全字匹配pattern字符串
     - `h`, `j`, `k`, `l`：分别表示光标向左下上右移动
     - `i`：进入Insert模式
 
 - Insert模式
 
-  - 左下角有`<Insert>`的标记标明这是插入模式，以上均为文字区
+  - 窗口左下角有`<Insert>`提示符，该行是提示操作区，上方是文本内容区
   - 命令
     - `esc`：进入Normal模式
+    - 其他输入均会在光标处将内容添加入文本

@@ -19,6 +19,11 @@ class NormalTxt: public Txt {
 private:
 	fstream file; // 文件流
 
+	void moveLeft(); // 光标左移
+	void moveDown(); // 光标下移
+	void moveUp(); // 光标上移
+	void moveRight(); // 光标右移
+
 	void readTxt(string& filename); // 读文件
 	void writeTxt(string& filename); // 写文件
 	void exeCmd(); // 读写操作
