@@ -9,15 +9,13 @@
 
 class Editor {
 private:
-	static void handleInput(); // 控制输入
-	static void render(); // 生成窗口
-
-	Editor() {} // 单例模式
+	void handleInput(); // 控制输入
+	void render(); // 生成窗口
 
 public:
+	Editor();
 	static std::shared_ptr<Screen> screen; // 窗口
-
-	static void run(); // 运行
+	void run(); // 运行
 };
 
 #endif

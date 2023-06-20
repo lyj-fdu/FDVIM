@@ -1,6 +1,7 @@
 #include "Editor.h"
 
-int main(){
-	Editor::run();
+int main() {
+	Editor vim;
+	vim.run();
 	return 0;
 }
