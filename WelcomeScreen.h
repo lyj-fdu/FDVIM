@@ -2,7 +2,7 @@
 #define WELCOME_SCREEN_H
 
 #include <iostream>
-#include "CursorOp.h"
+#include "Cursor.h"
 #include "Editor.h"
 #include "EditScreen.h"
 #include "Screen.h"

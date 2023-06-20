@@ -21,18 +21,18 @@ void InsertTxt::render() {
 	// 清屏
 	system("cls");
 	// 底部栏目
-	GotoXY(0, 28);
+	Cursor::setPos(0, 28);
 	cout << "<Insert>";
 	// 显示文本
 	if (txt.size() == 0) return;
-	GotoXY(0, 0);
+	Cursor::setPos(0, 0);
 	if (txt.size() == 0) return;
 	int len = txt.size();
 	for (int i = 0; i < len - 1; i++)
 		cout << txt[i] << endl;
 	cout << txt[len - 1];
 	// 显示光标
-	GotoXY(cur.X, cur.Y);
+	Cursor::setPos(cur.X, cur.Y);
 }
 
 void InsertTxt::insert(char& cmd) {
@@ -43,8 +43,8 @@ void InsertTxt::insert(char& cmd) {
 		txt[cur.Y].insert(txt[cur.Y].begin() + cur.X++, cmd); // 插入并更新x
 
 		render();
-		GotoXY(9, 28); // 移动光标到"<Normal> "之后
+		Cursor::setPos(9, 28); // 移动光标到"<Normal> "之后
 		cout << "Insert!";
-		GotoXY(cur.X, cur.Y);
+		Cursor::setPos(cur.X, cur.Y);
 	}
 }

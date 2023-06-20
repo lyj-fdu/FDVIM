@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "CursorOp.h"
+#include "Cursor.h"
 #include "History.h"
 
 using std::string;

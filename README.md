@@ -21,8 +21,8 @@
 
 ``` plain
 |_assets .txt等文件存放文件夹
-CursorOp.cpp 光标操作工具函数
-CursorOp.h
+Cursor.cpp 光标操作工具函数
+Cursor.h
 Editor.cpp 编辑器
 Editor.h
 EditScreen.cpp 编辑屏幕
@@ -52,7 +52,8 @@ WelcomeScreen.h
 - 数据结构设计
   - 文本以行为单位，每行储存在string里，所有string储存在vector中
   - 撤销与重做通过两个stack实现，每进行一次非重做非撤销操作都将历史push进撤销的stack中，每进行一次撤销操作都pop撤销的stack并push进重做的stack，每进行一次重做操作都pop重做的stack并push进撤销的stack
-  - 文件流数据结构、光标操作、控制台窗口需要的句柄、智能指针等结构可以通过标准库直接调用
+  - 文件流数据结构、控制台窗口需要的句柄、智能指针等结构可以通过标准库直接调用
+  - 光标操作封装为一个单例模式的工具类`Cursor`
 - 框架设计
   - 首先构建出了三个基本的界面
     - 考虑到有三种操作界面，这三个界面具有相似性，都有显示界面与处理输入的功能，因此先设计一个`Screen`父类，三种界面作为`Screen`的子类继承，记为`WelcomeScreen`，`EditScreen`以及`GoodbyeScreen`。它们由于具有处理输入与显示界面的共同功能，因此将`Screen`作为虚基类，带有`handleInput`与`render`两个虚函数，其三个子类重写这两个操作。

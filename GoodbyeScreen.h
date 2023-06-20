@@ -3,7 +3,7 @@
 
 #include <conio.h>
 #include <iostream>
-#include "CursorOp.h"
+#include "Cursor.h"
 #include "Screen.h"
 
 using std::cout;

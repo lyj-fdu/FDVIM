@@ -4,7 +4,6 @@
 #include <stack>
 #include <string>
 #include <vector>
-#include "CursorOp.h"
 
 using std::stack;
 using std::string;

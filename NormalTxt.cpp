@@ -43,17 +43,17 @@ void NormalTxt::render() {
 	// 清屏
 	system("cls");
 	// 底部栏目
-	GotoXY(0, 28);
+	Cursor::setPos(0, 28);
 	cout << "<Normal> ";
 	// 显示文本
-	GotoXY(0, 0);
+	Cursor::setPos(0, 0);
 	if (txt.size() == 0) return;
 	int len = txt.size();
 	for (int i = 0; i < len - 1; i++)
 		cout << txt[i] << endl;
 	cout << txt[len - 1];
 	// 显示光标
-	GotoXY(cur.X, cur.Y);
+	Cursor::setPos(cur.X, cur.Y);
 }
 
 void NormalTxt::moveLeft() {
@@ -108,7 +108,7 @@ void NormalTxt::readTxt(string& filename) {
 	file.close(); // 关闭上一个文件
 	file.open(filename.data(), ios::in); // 打开新文件，读模式
 	render();
-	GotoXY(9, 28); // 移动光标到"<Normal> "之后
+	Cursor::setPos(9, 28); // 移动光标到"<Normal> "之后
 	if (file.is_open()) {
 		cout << "Opening...";
 	} else {
@@ -135,7 +135,7 @@ void NormalTxt::readTxt(string& filename) {
 
 void NormalTxt::writeTxt(string& filename) {
 	render();
-	GotoXY(9, 28); // 移动光标到"<Normal> "之后
+	Cursor::setPos(9, 28); // 移动光标到"<Normal> "之后
 	cout << "Saving...";
 	file.close(); // 关闭上一个文件
 	file.open(filename.data(), ios::out); // 打开新文件，写模式
@@ -177,9 +177,9 @@ void NormalTxt::KMPSearch(string& pattern, COORD& cur) {
 				history.save(txt, cur); // 保留历史操作
 				cur.X = q - k; // 定位x
 				cur.Y = p; // 定位y
-				GotoXY(9, 28); // 移动光标到"<Normal> "之后
+				Cursor::setPos(9, 28); // 移动光标到"<Normal> "之后
 				cout << "Found! Locate cursor to first \"" << pattern << "\"!"; // 输出找到信息
-				GotoXY(cur.X, cur.Y); // 定位光标
+				Cursor::setPos(cur.X, cur.Y); // 定位光标
 				Sleep(1000); // 休眠1秒
 				return;
 			}
@@ -187,10 +187,11 @@ void NormalTxt::KMPSearch(string& pattern, COORD& cur) {
 	}
 	// 没找到
 	render();
-	GotoXY(9, 28); // 移动光标到"<Normal> "之后
-	cout << "Not Found! Do you want to find \"" << pattern << "\" from begnning?(y/n)"; // 输出没找到信息
-	char choice;
-	cin >> choice;
+	Cursor::setPos(9, 28); // 移动光标到"<Normal> "之后
+	cout << "Not Found! Do you want to find \"" << pattern << "\" from begnning? (y/n)"; // 输出没找到信息
+	char choice = _getch(); // 读取字符
+	if (!isascii(choice)) // 将字符转换为键盘指令
+		choice = _getch();
 	if (choice == 'y') {
 		render();
 		history.save(txt, cur); // 保留历史操作
@@ -202,7 +203,7 @@ void NormalTxt::KMPSearch(string& pattern, COORD& cur) {
 
 void NormalTxt::exeCmd() {
 	string op, filename;
-	GotoXY(9, 28); // 移动光标到"<Normal> "之后
+	Cursor::setPos(9, 28); // 移动光标到"<Normal> "之后
 	cout << ":";
 	cin >> op;
 	if (op == "q")
@@ -222,9 +223,9 @@ void NormalTxt::delChar() {
 	if (cur.X == 0 && cur.Y == 0 && static_cast<int>(txt.size()) == 0) return; // 第一行开头且无字
 
 	render();
-	GotoXY(9, 28); // 移动光标到"<Normal> "之后
+	Cursor::setPos(9, 28); // 移动光标到"<Normal> "之后
 	cout << "delete!";
-	GotoXY(cur.X, cur.Y);
+	Cursor::setPos(cur.X, cur.Y);
 
 	history.save(txt, cur); // 保留历史操作
 
@@ -254,14 +255,14 @@ void NormalTxt::undo() {
 		history.undo(txt, cur);
 
 		render();
-		GotoXY(9, 28); // 移动光标到"<Normal> "之后
+		Cursor::setPos(9, 28); // 移动光标到"<Normal> "之后
 		cout << "undo!";
 	} else {
 		render();
-		GotoXY(9, 28); // 移动光标到"<Normal> "之后
+		Cursor::setPos(9, 28); // 移动光标到"<Normal> "之后
 		cout << "No more undo!";
 	}
-	GotoXY(cur.X, cur.Y);
+	Cursor::setPos(cur.X, cur.Y);
 }
 
 void NormalTxt::redo() {
@@ -269,18 +270,18 @@ void NormalTxt::redo() {
 		history.redo(txt, cur);
 
 		render();
-		GotoXY(9, 28); // 移动光标到"<Normal> "之后
+		Cursor::setPos(9, 28); // 移动光标到"<Normal> "之后
 		cout << "redo!";
 	} else {
 		render();
-		GotoXY(9, 28); // 移动光标到"<Normal> "之后
+		Cursor::setPos(9, 28); // 移动光标到"<Normal> "之后
 		cout << "No more redo!";
 	}
-	GotoXY(cur.X, cur.Y);
+	Cursor::setPos(cur.X, cur.Y);
 }
 
 void NormalTxt::searchStr() {
-	GotoXY(9, 28); // 移动光标到"<Normal> "之后
+	Cursor::setPos(9, 28); // 移动光标到"<Normal> "之后
 	cout << '/';
 	string pattern;
 	cin.sync(); // 清空读入缓冲区
