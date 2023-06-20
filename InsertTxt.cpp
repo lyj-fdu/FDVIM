@@ -9,7 +9,7 @@ void InsertTxt::handleInput() {
 		cmd = _getch();
 	switch (cmd) {
 	case ESC: // 普通模式
-		EditorScreen::text = std::make_shared<NormalTxt>(txt, cur, history);
+		EditScreen::text = std::make_shared<NormalTxt>(txt, cur, history);
 		break;
 	default: // 输入字符
 		insert(cmd);

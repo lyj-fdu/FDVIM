@@ -2,7 +2,7 @@
 #define INSERT_TXT_H
 
 #include <iostream>
-#include "EditorScreen.h"
+#include "EditScreen.h"
 #include "NormalTxt.h"
 #include "Txt.h"
 

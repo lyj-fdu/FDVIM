@@ -31,7 +31,7 @@ void NormalTxt::handleInput() {
 		moveRight();
 		break;
 	case 'i': // 插入模式
-		EditorScreen::text = std::make_shared<InsertTxt>(txt, cur, history);
+		EditScreen::text = std::make_shared<InsertTxt>(txt, cur, history);
 		break;
 	case '/': // 寻字模式
 		searchStr();

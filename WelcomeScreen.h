@@ -4,7 +4,7 @@
 #include <iostream>
 #include "CursorOp.h"
 #include "Editor.h"
-#include "EditorScreen.h"
+#include "EditScreen.h"
 #include "Screen.h"
 
 using std::cout;

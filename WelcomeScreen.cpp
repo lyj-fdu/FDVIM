@@ -1,7 +1,7 @@
 #include "WelcomeScreen.h"
 
 void WelcomeScreen::handleInput() {
-	Editor::screen = std::make_shared<EditorScreen>(); // 进入编辑器界面
+	Editor::screen = std::make_shared<EditScreen>(); // 进入编辑器界面
 }
 
 void WelcomeScreen::render() {

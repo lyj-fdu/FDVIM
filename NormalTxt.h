@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include "Editor.h"
-#include "EditorScreen.h"
+#include "EditScreen.h"
 #include "GoodbyeScreen.h"
 #include "InsertTxt.h"
 #include "Txt.h"
