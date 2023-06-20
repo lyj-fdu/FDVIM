@@ -22,15 +22,13 @@ void InsertTxt::render() {
 	system("cls");
 	// 底部栏目
 	Cursor::setPos(0, 28);
-	cout << "<Insert>";
+	cout << "<Insert> ";
 	// 显示文本
 	if (txt.size() == 0) return;
 	Cursor::setPos(0, 0);
-	if (txt.size() == 0) return;
 	int len = txt.size();
-	for (int i = 0; i < len - 1; i++)
+	for (int i = 0; i < len; i++)
 		cout << txt[i] << endl;
-	cout << txt[len - 1];
 	// 显示光标
 	Cursor::setPos(cur.X, cur.Y);
 }

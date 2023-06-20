@@ -4,6 +4,7 @@
 #include <stack>
 #include <string>
 #include <vector>
+#include <Windows.h>
 
 using std::stack;
 using std::string;
