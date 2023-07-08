@@ -28,43 +28,81 @@
 ## 2.1. 项目结构
 
 ```plain
-|_assets .txt等文件存放文件夹
-Cursor.cpp 光标操作工具函数
-Cursor.h
-Editor.cpp 编辑器
-Editor.h
-EditScreen.cpp 编辑屏幕
-EditScreen.h
-fdvim.cpp 主程序
-fdvim.exe 可执行程序
-GoodbyeScreen.cpp 结束屏幕
-GoodbyeScreen.h
-History.cpp 历史记录
-History.h
-InsertTxt.cpp 插入文字
-InsertTxt.h
-Makefile 编译项目所需的文件
-NormalTxt.cpp 普通文字
-NormalTxt.h
-README.md 本文档
-Screen.h 屏幕虚基类
-Txt.cpp 文字虚基类
-WelcomeScreen.cpp 欢迎屏幕
-WelcomeScreen.h
+.
+│  .gitignore
+│  build.bat
+│  CMakeLists.txt
+│  LICENSE
+│  main.cpp
+│  README.md
+│
+├─assets
+│  │  1.txt
+│  │  2.txt
+│  │  3.txt
+│  │
+│  └─img
+│          edit.png
+│          goodbye.png
+│          run.png
+│          UML.drawio
+│          UML.png
+│          welcome.png
+│
+├─include
+│  ├─Editor
+│  │      Editor.h
+│  │
+│  ├─Screen
+│  │      EditScreen.h
+│  │      GoodbyeScreen.h
+│  │      Screen.h
+│  │      WelcomeScreen.h
+│  │
+│  ├─Txt
+│  │      InsertTxt.h
+│  │      NormalTxt.h
+│  │      Txt.h
+│  │
+│  └─Util
+│          Cursor.h
+│          History.h
+│
+└─lib
+    │  CMakeLists.txt
+    │
+    ├─Editor
+    │      CMakeLists.txt
+    │      Editor.cpp
+    │
+    ├─Screen
+    │      CMakeLists.txt
+    │      EditScreen.cpp
+    │      GoodbyeScreen.cpp
+    │      Screen.cpp
+    │      WelcomeScreen.cpp
+    │
+    ├─Txt
+    │      CMakeLists.txt
+    │      InsertTxt.cpp
+    │      NormalTxt.cpp
+    │      Txt.cpp
+    │
+    └─Util
+            CMakeLists.txt
+            Cursor.cpp
+            History.cpp
 ```
 
 ## 2.2. 环境配置
 
 - Windows系统
 - cmd终端
-- C++14
+- CMake（3.20以上版本，且带有MinGW Makefiles）
 
 ## 2.3. 编译运行
 
-在主文件夹打开cmd命令行：
-
-- `make`：生成`fdvim.exe`，双击即可启动程序
-- `make clean`：清除编译过程中产生的.o文件
+- 运行`build.bat`，即可在`build`文件夹下找到`fdvim.exe`，双击即可启动程序
 
 # 3. 操作指南
 

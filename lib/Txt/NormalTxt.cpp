@@ -209,11 +209,11 @@ void NormalTxt::exeCmd() {
 		Editor::screen = std::make_shared<GoodbyeScreen>();
 	if (op == "open") { // 读
 		cin >> filename;
-		filename = "assets/" + filename;
+		filename = "../assets/" + filename;
 		readTxt(filename);
 	} else if (op == "w") { // 写
 		cin >> filename;
-		filename = "assets/" + filename;
+		filename = "../assets/" + filename;
 		writeTxt(filename);
 	}
 }
