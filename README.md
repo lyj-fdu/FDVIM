@@ -29,69 +29,50 @@
 
 ```plain
 .
-│  .gitignore
-│  build.bat
-│  CMakeLists.txt
-│  LICENSE
-│  main.cpp
-│  README.md
-│
-├─assets
-│  │  1.txt
-│  │  2.txt
-│  │  3.txt
-│  │
-│  └─img
-│          edit.png
-│          goodbye.png
-│          run.png
-│          UML.drawio
-│          UML.png
-│          welcome.png
-│
-├─include
-│  ├─Editor
-│  │      Editor.h
-│  │
-│  ├─Screen
-│  │      EditScreen.h
-│  │      GoodbyeScreen.h
-│  │      Screen.h
-│  │      WelcomeScreen.h
-│  │
-│  ├─Txt
-│  │      InsertTxt.h
-│  │      NormalTxt.h
-│  │      Txt.h
-│  │
-│  └─Util
-│          Cursor.h
-│          History.h
-│
-└─lib
-    │  CMakeLists.txt
-    │
-    ├─Editor
-    │      CMakeLists.txt
-    │      Editor.cpp
-    │
-    ├─Screen
-    │      CMakeLists.txt
-    │      EditScreen.cpp
-    │      GoodbyeScreen.cpp
-    │      Screen.cpp
-    │      WelcomeScreen.cpp
-    │
-    ├─Txt
-    │      CMakeLists.txt
-    │      InsertTxt.cpp
-    │      NormalTxt.cpp
-    │      Txt.cpp
-    │
-    └─Util
-            CMakeLists.txt
-            Cursor.cpp
-            History.cpp
+├── assets
+│   └── ...
+├── include 头文件
+│   ├── Editor
+│   │   └── Editor.h
+│   ├── Screen
+│   │   ├── EditScreen.h
+│   │   ├── GoodbyeScreen.h
+│   │   ├── Screen.h
+│   │   └── WelcomeScreen.h
+│   ├── Txt
+│   │   ├── InsertTxt.h
+│   │   ├── NormalTxt.h
+│   │   └── Txt.h
+│   └── Util
+│       ├── Cursor.h
+│       └── History.h
+├── lib 源文件
+│   ├── CMakeLists.txt
+│   ├── Editor
+│   │   ├── CMakeLists.txt
+│   │   └── Editor.cpp
+│   ├── Screen
+│   │   ├── CMakeLists.txt
+│   │   ├── EditScreen.cpp
+│   │   ├── GoodbyeScreen.cpp
+│   │   ├── Screen.cpp
+│   │   └── WelcomeScreen.cpp
+│   ├── Txt
+│   │   ├── CMakeLists.txt
+│   │   ├── InsertTxt.cpp
+│   │   ├── NormalTxt.cpp
+│   │   └── Txt.cpp
+│   └── Util
+│       ├── CMakeLists.txt
+│       ├── Cursor.cpp
+│       └── History.cpp
+├── tools 最终用户程序
+│   ├── CMakeLists.txt
+│   └── fdvim.cpp
+├── CMakeLists.txt
+├── LICENSE
+├── README.md
+└── build.bat 构建脚本
 ```
 
 ## 2.2. 环境配置
@@ -102,7 +83,7 @@
 
 ## 2.3. 编译运行
 
-- 运行`build.bat`，即可在`build`文件夹下找到`fdvim.exe`，双击即可启动程序
+- 运行`build.bat`，即可在`build/tools`文件夹下找到`fdvim.exe`，双击即可启动程序
 
 # 3. 操作指南
 

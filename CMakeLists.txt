@@ -12,14 +12,4 @@ include_directories(include/Util)
 
 # 递归构建
 add_subdirectory(lib)
-
-# 编译main
-add_executable(${PROJECT_NAME} main.cpp)
-
-# 添加链接库
-target_link_libraries(${PROJECT_NAME} PUBLIC
-    Editor
-    Screen
-    Txt
-    Util
-)
+add_subdirectory(tools)
